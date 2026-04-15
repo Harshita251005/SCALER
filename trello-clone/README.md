@@ -32,7 +32,9 @@ A full-stack Kanban-style project management web app built with **Next.js 16**, 
 ### ⭐ Bonus Features
 - Multiple boards support
 - Board background color customization
-- Responsive layout
+- Responsive layout (mobile, tablet, desktop)
+- File attachments on cards
+- Comments and activity log on cards
 
 ---
 
@@ -74,6 +76,8 @@ List          — id, title, order, boardId → Board
 Card          — id, title, description, order, dueDate, archived, listId → List
 Label         — id, color, text, cardId → Card
 ChecklistItem — id, text, completed, cardId → Card
+Comment       — id, text, author, createdAt, cardId → Card
+Attachment    — id, filename, url, createdAt, cardId → Card
 User ↔ Card   — many-to-many (members)
 ```
 
@@ -109,8 +113,12 @@ src/
 │       ├── cards/[cardId]/labels/[labelId]/ # DELETE label
 │       ├── cards/[cardId]/members/        # POST assign, DELETE unassign
 │       ├── cards/[cardId]/checklists/     # POST add item
+│       ├── cards/[cardId]/comments/       # GET/POST comments
+│       ├── cards/[cardId]/attachments/    # GET/POST attachments
 │       ├── cards/reorder/        # PUT reorder
 │       ├── checklists/[id]/      # PATCH toggle, DELETE
+│       ├── comments/[id]/        # DELETE
+│       ├── attachments/[id]/     # DELETE
 │       └── users/                # GET all users
 ├── components/
 │   ├── CardModal.tsx             # Full card detail modal
@@ -119,17 +127,3 @@ src/
     └── prisma.ts                 # Prisma client singleton
 ```
 
-# 1. Go to the project folder
-
-
-# 2. Install dependencies (only needed once)
-npm install
-
-# 3. Set up the database
-npx prisma db push
-
-# 4. Seed sample data (members + board)
-npx ts-node -P tsconfig.seed.json prisma/seed.ts
-
-# 5. Start the app
-npm run dev
