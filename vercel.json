@@ -1,5 +1,6 @@
 {
   "buildCommand": "cd trello-clone && npx prisma generate && next build",
   "outputDirectory": "trello-clone/.next",
+  "installCommand": "cd trello-clone && npm install",
   "framework": "nextjs"
 }
