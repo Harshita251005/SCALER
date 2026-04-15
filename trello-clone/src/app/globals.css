@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0079bf;
+  --foreground: #ffffff;
+}
+
+body {
+  background: linear-gradient(135deg, #0052cc 0%, #0079bf 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+input:not([type="submit"]):not([type="button"]), textarea, select {
+  color: #1e293b; /* ensure text inputs are cleanly readable */
+}
+
+input::placeholder, textarea::placeholder {
+  color: #94a3b8; /* slate-400 so placeholders are visible perfectly */
+}
+
+/* Custom Webkit Scrollbar to look premium */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1); 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3); 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5); 
+}

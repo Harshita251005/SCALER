@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id    String @id @default(uuid())
+  name  String
+  email String @unique
+  cards Card[] // assigned to
+}
+
+model Board {
+  id        String   @id @default(uuid())
+  title     String
+  bgImgRes  String?  // Bonus: Background
+  lists     List[]
+  createdAt DateTime @default(now())
+}
+
+model List {
+  id      String @id @default(uuid())
+  title   String
+  order   Int
+  boardId String
+  board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  cards   Card[]
+}
+
+model Card {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  order       Int
+  dueDate     String?
+  archived    Boolean  @default(false)
+  listId      String
+  list        List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  labels      Label[]
+  members     User[]
+  checklists  ChecklistItem[]
+}
+
+model Label {
+  id     String @id @default(uuid())
+  color  String
+  text   String?
+  cardId String
+  card   Card   @relation(fields: [cardId], references: [id], onDelete: Cascade)
+}
+
+model ChecklistItem {
+  id        String  @id @default(uuid())
+  text      String
+  completed Boolean @default(false)
+  cardId    String
+  card      Card    @relation(fields: [cardId], references: [id], onDelete: Cascade)
+}
